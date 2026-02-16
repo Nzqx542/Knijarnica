@@ -1,31 +1,25 @@
 import streamlit as st
+
 if 'books' not in st.session_state:
-    st.session_state.books = [
-        "The Hobbit",
-        "1984",
-        "Pride and Prejudice"
-    ]
-st.title("📚 Library Manager")
-st.subheader("Check Availability")
-check_input = st.text_input("Enter title to search:")
+    st.session_state.books = ["The Hobbit", "1984", "The Great Gatsby"]
 
-if st.button("Check Book"):
+st.title("Book Manager")
+
+# Проверка на книга
+check_input = st.text_input("Search book:")
+if st.button("Check"):
     if any(b.lower() == check_input.strip().lower() for b in st.session_state.books):
-        st.success(f"'{check_input}' is available!")
+        st.success("Found!")
     else:
-        st.error("Book not found.")
-st.divider()
-st.subheader("Add New Book")
-new_book = st.text_input("Enter new book title:")
+        st.error("Not found.")
 
-if st.button("Add to Database"):
-    clean_new = new_book.strip()
-    if clean_new == "":
-        st.warning("Please enter a title.")
-    elif any(b.lower() == clean_new.lower() for b in st.session_state.books):
-        st.info("This book is already in the database.")
-    else:
-        st.session_state.books.append(clean_new)
-        st.success(f"Added '{clean_new}' successfully!")
-if st.checkbox("Show all books"):
-    st.write(sorted(st.session_state.books))
+# Добавяне на книга
+add_input = st.text_input("Add new book:")
+if st.button("Add"):
+    if add_input.strip() and add_input not in st.session_state.books:
+        st.session_state.books.append(add_input.strip())
+        st.success("Added!")
+
+# Списък
+if st.checkbox("Show Library"):
+    st.write(st.session_state.books)
