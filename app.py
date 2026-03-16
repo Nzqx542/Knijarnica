@@ -22,7 +22,6 @@ if st.button("Check Book"):
   else:
     st.error("The book is not in the database!")
 
-# Новата част за добавяне
 new_book = st.text_input("Add a new book:")
 if st.button("Add"):
     books.append(new_book)
